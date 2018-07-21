@@ -5,9 +5,7 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;
 import org.junit.Test;
-import util.CodeModelUtil;
-import util.CreateService;
-import util.CreateServiceImpl;
+import util.*;
 
 import java.io.File;
 
@@ -19,6 +17,8 @@ import java.io.File;
  * @date 2018/7/19
  */
 public class CodeModelUtilTest {
+
+    String packageName = "wang.crown9527.test.";
 
 
     /**
@@ -69,20 +69,39 @@ public class CodeModelUtilTest {
      */
     @Test
     public void initCreateServiceImplClass() throws Exception {
-        String fullName = "com.crown.test.StudentServiceImpl";
+        String fullName = packageName + "StudentServiceImpl";
         String moduleType = "Student";
         CreateServiceImpl.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType));
         CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
 
+    /**
+     * <h3>测试Dao</h3>
+     *
+     * @param []
+     * @return void
+     * @author Crown
+     * @date 2018/7/21        
+     */
     @Test
-    public void getClassTest() {
-        // JType jType = CodeModelUtil.codeModel.parseType("java.util.List");
-        JDefinedClass jDefinedClass = CodeModelUtil.codeModel._getClass("java.lang.String");
-        // CodeModelUtil.codeModel._class("java.lang")
-        System.out.println(jDefinedClass);
-
-        // System.out.println(jType);
-
+    public void initCreateCreateDaoClass() throws Exception {
+        String fullName = packageName + "StudentDao";
+        String moduleType = "Student";
+        CreateDao.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType));
+        CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
+
+    @Test
+    public void intCreateControllerClassTest()throws Exception{
+        String fullName = packageName + "StudentController";
+        String moduleType = "Student";
+        CreateController.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType));
+        CodeModelUtil.codeModel.build(new File("src/main/java"));
+    }
+
+
+
+
+
+
 }

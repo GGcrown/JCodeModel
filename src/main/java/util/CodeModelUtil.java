@@ -21,20 +21,33 @@ public class CodeModelUtil {
     // BaseModel 基础模块
     public static JType baseModel;
     // String String类型
-    public static JType string;
+    public static JClass string;
     // List类型
-    public static JType list;
+    // public static JType list;
+    public static JClass list;
     // ArrayList类型
-    public static JType arrayList;
+    public static JClass arrayList;
+
+
+    /*
+     * 注解类
+     */
+    // Autowired 类
+    public static JClass autowired;
+    // PathVariable 变量类
+    public static JClass pathVariable;
+
 
     static {
         try {
             // 设置值
             businessException = codeModel.parseType("BusinessException");
             baseModel = codeModel.parseType("BaseModel");
-            string = codeModel.parseType("String");
-            list = codeModel.parseType("java.util.List");
-            arrayList = codeModel.parseType("java.util.ArrayList");
+            string = codeModel.ref("java.lang.String");
+            list = codeModel.ref("java.lang.List");
+            arrayList = codeModel.ref("jvaa.lang.ArrayList");
+            autowired = codeModel.ref("org.springframework.beans.factory.annotation.Autowire");
+            pathVariable = codeModel.ref("org.springframework.web.bind.annotation.PathVariable");
         } catch (Exception e) {
             e.printStackTrace();
         }
