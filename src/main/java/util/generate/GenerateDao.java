@@ -1,9 +1,11 @@
-package util;
+package util.generate;
 
 import com.sun.codemodel.ClassType;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.JType;
+import util.base.BaseClass;
+import util.base.CodeModelUtil;
 
 /**
  * @author Crown

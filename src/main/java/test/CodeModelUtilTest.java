@@ -5,7 +5,11 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;
 import org.junit.Test;
-import util.*;
+import util.base.CodeModelUtil;
+import util.generate.GenerateController;
+import util.generate.GenerateDao;
+import util.generate.GenerateService;
+import util.generate.GenerateServiceImpl;
 
 import java.io.File;
 

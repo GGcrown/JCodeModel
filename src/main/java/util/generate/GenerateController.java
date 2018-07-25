@@ -1,6 +1,7 @@
-package util;
+package util.generate;
 
 import com.sun.codemodel.*;
+import util.base.*;
 
 /**
  * @author Crown

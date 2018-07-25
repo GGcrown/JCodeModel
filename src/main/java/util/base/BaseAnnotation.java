@@ -1,4 +1,4 @@
-package util;
+package util.base;
 
 import com.sun.codemodel.JAnnotationUse;
 import com.sun.codemodel.JClass;

@@ -1,6 +1,9 @@
-package util;
+package util.generate;
 
 import com.sun.codemodel.*;
+import util.base.BaseClass;
+import util.base.CharUtil;
+import util.base.CodeModelUtil;
 
 /**
  * @author Crown
@@ -38,7 +41,7 @@ public class GenerateServiceImpl extends BaseClass {
      * <h3>初始化类</h3>
      *
      * @param [fullName, jType]
-     * @return test.util.GenerateServiceImpl
+     * @return test.util.generate.GenerateServiceImpl
      * @author Crown
      * @date 2018/7/21        
      */

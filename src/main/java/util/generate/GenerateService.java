@@ -1,9 +1,11 @@
-package util;
+package util.generate;
 
 import com.sun.codemodel.ClassType;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.JType;
+import util.base.BaseClass;
+import util.base.CodeModelUtil;
 
 /**
  * @author Crown
@@ -40,7 +42,7 @@ public class GenerateService extends BaseClass<GenerateService> {
      * <h3>初始化Service类</h3>
      *
      * @param [fullName 类的全路径名称, jType 类的类型]
-     * @return test.util.GenerateService
+     * @return test.util.generate.GenerateService
      * @author Crown
      * @date 2018/7/19
      */
