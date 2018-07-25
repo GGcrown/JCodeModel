@@ -120,7 +120,7 @@ public class GenerateController extends BaseClass {
         BaseAnnotation baseAnnotation = new BaseAnnotation(method, pojoType);
         baseAnnotation.generateBaseAnnottation(this.aopModule, CodeModelConstants.FUN_ADD, false
                 , "添加" + this.moduleName, "POST"
-                , "add" + this.genClass.name());
+                , "add" + this.pojoType.name());
         // 生成注释
         this.generateMehotdJavaDoc(method, "添加" + this.moduleName, baseModelParam.name());
 
@@ -164,7 +164,7 @@ public class GenerateController extends BaseClass {
         BaseAnnotation baseAnnotation = new BaseAnnotation(method, pojoType);
         baseAnnotation.generateBaseAnnottation(this.aopModule, CodeModelConstants.FUN_DELETE, false
                 , "删除" + this.moduleName + "信息", "POST"
-                , "delete" + this.genClass.name() + "/{delIds}");
+                , "delete" + this.pojoType.name() + "/{delIds}");
         // 生成注释
         this.generateMehotdJavaDoc(method, "删除" + this.moduleName + "成功", baseModelParam.name());
 
@@ -203,7 +203,7 @@ public class GenerateController extends BaseClass {
         BaseAnnotation baseAnnotation = new BaseAnnotation(method, pojoType);
         baseAnnotation.generateBaseAnnottation(this.aopModule, CodeModelConstants.FUN_UPDATE, false
                 , "更新" + this.moduleName, "POST"
-                , "update" + this.genClass.name());
+                , "update" + this.pojoType.name());
         // 生成注释
         this.generateMehotdJavaDoc(method, "更新" + this.moduleName, baseModelParam.name());
 
@@ -246,7 +246,7 @@ public class GenerateController extends BaseClass {
         BaseAnnotation baseAnnotation = new BaseAnnotation(method, pojoType);
         baseAnnotation.generateBaseAnnottation(this.aopModule, CodeModelConstants.FUN_SEARCH, false
                 , "分页查询" + this.moduleName, "POST"
-                , "findPage" + this.genClass.name());
+                , "findPage" + this.pojoType.name());
         // 生成注释
         this.generateMehotdJavaDoc(method, "分页查询" + this.moduleName, baseModelParam.name());
 
@@ -286,7 +286,7 @@ public class GenerateController extends BaseClass {
         BaseAnnotation baseAnnotation = new BaseAnnotation(method, pojoType);
         baseAnnotation.generateBaseAnnottation(this.aopModule, CodeModelConstants.FUN_SEARCH, false
                 , "根据" + this.moduleName + "id查询" + this.moduleName, "POST"
-                , "find" + this.genClass.name() + "ByPk/{pk}");
+                , "find" + this.pojoType.name() + "ByPk/{pk}");
         // 生成注释
         this.generateMehotdJavaDoc(method, "根据" + this.moduleName + "id查询" + this.moduleName, baseModelParam.name());
 

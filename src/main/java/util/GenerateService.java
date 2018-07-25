@@ -8,7 +8,7 @@ import com.sun.codemodel.JType;
 /**
  * @author Crown
  * @ClassName GenerateService
- * @Description 创建service层
+ * @Description 生成service层
  * @email haocan@foxmail.com
  * @date 2018/7/19
  */
@@ -51,12 +51,12 @@ public class GenerateService extends BaseClass<GenerateService> {
         // 生成类注释
         generateService.generateClassJavaDoc();
         // 生成基本方法
-        generateService.createBaseMethod();
+        generateService.generateBaseMethod();
         return generateService;
     }
 
     /**
-     * <h3>创建基本的五个方法</h3>
+     * <h3>生成基本的五个方法</h3>
      * 包括：addData,deleteData,updateData,findPageData,findDataByPk
      *
      * @param []
@@ -64,12 +64,12 @@ public class GenerateService extends BaseClass<GenerateService> {
      * @author Crown
      * @date 2018/7/19
      */
-    public void createBaseMethod() throws Exception {
-        createServiceAddMethod();
-        createServiceDeleteMethod();
-        createServiceUpdateMethod();
-        createServiceFindPageMethod();
-        createServiceFindByPkMethod();
+    public void generateBaseMethod() throws Exception {
+        generateServiceAddMethod();
+        generateServiceDeleteMethod();
+        generateServiceUpdateMethod();
+        generateServiceFindPageMethod();
+        generateServiceFindByPkMethod();
     }
 
     /**
@@ -80,56 +80,56 @@ public class GenerateService extends BaseClass<GenerateService> {
      * @author Crown
      * @date 2018/7/19
      */
-    public void createServiceAddMethod() throws Exception {
-        createAbstractMethod("addData");
+    public void generateServiceAddMethod() throws Exception {
+        generateAbstractMethod("addData");
     }
 
     /**
-     * <h3>创建删除方法</h3>
+     * <h3>生成删除方法</h3>
      *
      * @param []
      * @return void
      * @author Crown
      * @date 2018/7/19
      */
-    public void createServiceDeleteMethod() throws Exception {
-        createAbstractMethod("deleteData", CodeModelUtil.string, "delIds");
+    public void generateServiceDeleteMethod() throws Exception {
+        generateAbstractMethod("deleteData", CodeModelUtil.string, "delIds");
     }
 
     /**
-     * <h3>创建修改方法</h3>
+     * <h3>生成修改方法</h3>
      *
      * @param []
      * @return void
      * @author Crown
      * @date 2018/7/19
      */
-    public void createServiceUpdateMethod() throws Exception {
-        createAbstractMethod("updateData");
+    public void generateServiceUpdateMethod() throws Exception {
+        generateAbstractMethod("updateData");
     }
 
     /**
-     * <h3>创建分页查询方法</h3>
+     * <h3>生成分页查询方法</h3>
      *
      * @param []
      * @return void
      * @author Crown
      * @date 2018/7/19
      */
-    public void createServiceFindPageMethod() throws Exception {
-        createAbstractMethod("findPageData");
+    public void generateServiceFindPageMethod() throws Exception {
+        generateAbstractMethod("findPageData");
     }
 
     /**
-     * <h3>创建通过主键查询的方法</h3>
+     * <h3>生成通过主键查询的方法</h3>
      *
      * @param []
      * @return void
      * @author Crown
      * @date 2018/7/19
      */
-    public void createServiceFindByPkMethod() throws Exception {
-        createAbstractMethod("findDataByPk", CodeModelUtil.string, "pk");
+    public void generateServiceFindByPkMethod() throws Exception {
+        generateAbstractMethod("findDataByPk", CodeModelUtil.string, "pk");
     }
 
 

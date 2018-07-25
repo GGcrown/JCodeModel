@@ -59,61 +59,61 @@ public class CodeModelUtil {
 
 
     /**
-     * <h3>创建私有属性 类型为String 包含GetSet方法 </h3>
+     * <h3>生成私有属性 类型为String 包含GetSet方法 </h3>
      *
      * @param [codeModel, genClass, propertyName]
      * @return void
      * @author Crown
      */
-    public static void createProperties(JCodeModel codeModel, JDefinedClass genClass, String propertyName) throws ClassNotFoundException {
-        createProperties(codeModel, genClass, codeModel.parseType("String"), propertyName);
+    public static void generateProperties(JCodeModel codeModel, JDefinedClass genClass, String propertyName) throws ClassNotFoundException {
+        generateProperties(codeModel, genClass, codeModel.parseType("String"), propertyName);
     }
 
     /**
-     * <h3>创建私有属性 包含GetSet方法</h3>
+     * <h3>生成私有属性 包含GetSet方法</h3>
      *
      * @param [codeModel, genClass, jType, propertyName]
      * @return void
      * @author Crown
      */
-    public static void createProperties(JCodeModel codeModel, JDefinedClass genClass, JType jType, String propertyName) {
-        createProperties(codeModel, genClass, JMod.PRIVATE, jType, propertyName);
+    public static void generateProperties(JCodeModel codeModel, JDefinedClass genClass, JType jType, String propertyName) {
+        generateProperties(codeModel, genClass, JMod.PRIVATE, jType, propertyName);
     }
 
     /**
-     * <h3>创建属性方法 包含GetSet方法</h3>
+     * <h3>生成属性方法 包含GetSet方法</h3>
      *
      * @param [codeModel, genClass, mods, jType, propertyName]
      * @return void
      * @author Crown
      */
-    public static void createProperties(JCodeModel codeModel, JDefinedClass genClass, int mods, JType jType, String propertyName) {
-        // 创建属性
+    public static void generateProperties(JCodeModel codeModel, JDefinedClass genClass, int mods, JType jType, String propertyName) {
+        // 生成属性
         JFieldVar field = genClass.field(mods, jType, propertyName);
-        createGetSetMethod(codeModel, genClass, jType, propertyName);
+        generateGetSetMethod(codeModel, genClass, jType, propertyName);
     }
 
     /**
-     * <h3>创建GetSet方法</h3>
+     * <h3>生成GetSet方法</h3>
      *
      * @param [codeModel, genClass, jType, propertyName]
      * @return void
      * @author Crown
      */
-    public static void createGetSetMethod(JCodeModel codeModel, JDefinedClass genClass, JType jType, String propertyName) {
-        createGetMethod(codeModel, genClass, jType, propertyName);
-        createSetMethod(codeModel, genClass, propertyName);
+    public static void generateGetSetMethod(JCodeModel codeModel, JDefinedClass genClass, JType jType, String propertyName) {
+        generateGetMethod(codeModel, genClass, jType, propertyName);
+        generateSetMethod(codeModel, genClass, propertyName);
     }
 
     /**
-     * <h3>创建get方法</h3>
+     * <h3>生成get方法</h3>
      *
      * @param [codeModel, genClass, jType, propertyName]
      * @return void
      * @author Crown
      */
-    public static void createGetMethod(JCodeModel codeModel, JDefinedClass genClass, JType jType, String propertyName) {
-        // 创建方法
+    public static void generateGetMethod(JCodeModel codeModel, JDefinedClass genClass, JType jType, String propertyName) {
+        // 生成方法
         JMethod method = genClass.method(JMod.PUBLIC, jType, "get" + CharUtil.stringBeginCharToUpper(propertyName));
         // 方法体
         JBlock methodBlock = method.body();
@@ -122,15 +122,15 @@ public class CodeModelUtil {
     }
 
     /**
-     * <h3>创建set方法</h3>
+     * <h3>生成set方法</h3>
      *
      * @param [codeModel, genClass, propertyName]
      * @return void
      * @author Crown
      */
-    public static void createSetMethod(JCodeModel codeModel, JDefinedClass genClass, String propertyName) {
+    public static void generateSetMethod(JCodeModel codeModel, JDefinedClass genClass, String propertyName) {
         try {
-            // 创建方法
+            // 生成方法
             JMethod method = genClass.method(JMod.PUBLIC, codeModel.VOID, "set" + CharUtil.stringBeginCharToUpper(propertyName));
             JVar param = method.param(codeModel.parseType("String"), propertyName);
             // 方法体

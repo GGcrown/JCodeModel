@@ -137,38 +137,38 @@ public class BaseClass<T> {
 
 
     /**
-     * <h3>创建抽象方法</h3>
+     * <h3>生成抽象方法</h3>
      *
      * @param [methodName 方法名称,默认第二个参数类型为当前模块类型,默认参数名称为模块类型的小写形式]
      * @return void
      * @author Crown
      * @date 2018/7/19
      */
-    protected void createAbstractMethod(String methodName) throws Exception {
-        createAbstractMethod(methodName, this.pojoType);
+    protected void generateAbstractMethod(String methodName) throws Exception {
+        generateAbstractMethod(methodName, this.pojoType);
     }
 
     /**
-     * <h3>创建抽象方法</h3>
+     * <h3>生成抽象方法</h3>
      *
      * @param [methodName 方法名称, jType 第二个参数类型,默认参数名称为参数类型的小写形式]
      * @return void
      * @author Crown
      * @date 2018/7/19
      */
-    protected void createAbstractMethod(String methodName, JType jType) throws Exception {
-        createAbstractMethod(methodName, jType, jType.name());
+    protected void generateAbstractMethod(String methodName, JType jType) throws Exception {
+        generateAbstractMethod(methodName, jType, jType.name());
     }
 
     /**
-     * <h3>创建抽象方法</h3>
+     * <h3>生成抽象方法</h3>
      *
      * @param [methodName 方法名称, jType 第二个参数类型, paramName 第二个参数名称]
      * @return void
      * @author Crown
      * @date 2018/7/19
      */
-    public void createAbstractMethod(String methodName, JType jType, String paramName) throws Exception {
+    public void generateAbstractMethod(String methodName, JType jType, String paramName) throws Exception {
         JMethod addDataMethod = genClass.method(JMod.NONE, codeModel.VOID, methodName);
         // 第一个参数 baseModel
         addDataMethod.param(CodeModelUtil.baseModel, CharUtil.stringBeginCharToLower(CodeModelUtil.baseModel.name()));

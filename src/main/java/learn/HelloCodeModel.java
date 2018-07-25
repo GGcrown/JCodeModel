@@ -23,7 +23,7 @@ public class HelloCodeModel {
     public void codeModelTest1() throws Exception {
         // 实例化CodeModel
         JCodeModel cm = new JCodeModel();
-        // 创建TestMain类
+        // 生成TestMain类
         JDefinedClass dc = cm._class("com.example.test.TestMain");
         // 指明引用类型
         JType type = cm.parseType("String");
@@ -46,12 +46,12 @@ public class HelloCodeModel {
         // 数组变量生成与赋值
         // 定义为数组类型
         JType arrType = cm.parseType("int []");
-        // 创建整形的数组成员变量
+        // 生成整形的数组成员变量
         JArray initIntArray = JExpr.newArray(cm.INT);
         dc.field(JMod.PUBLIC, arrType, "arr", initIntArray);
         initIntArray.add(JExpr.lit(0));
         initIntArray.add(JExpr.lit(1));
-        // 创建整型数组的局部变量
+        // 生成整型数组的局部变量
         exampleMethodBlk.decl(arrType, "partArray", initIntArray);
         // list数据类型
         JType listType = cm.parseType("List");

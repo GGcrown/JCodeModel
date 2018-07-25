@@ -88,7 +88,6 @@ public class FileUtil {
                     recursionFileName(path + File.separator + file.getName(), tempPath + file.getName(), fileNameList);
                 } else {
                     String tempPath = relativePath.equals("") ? "" : relativePath + File.separator;
-                    // relativePath = relativePath.equals("") ? "" : relativePath + File.separator;
                     fileNameList.add(tempPath + file.getName());
                 }
             }
@@ -111,7 +110,6 @@ public class FileUtil {
         for (String s : stringList) {
             FileUtil.unicodeFileToCn(str + File.separator + s);
         }
-
     }
 
 

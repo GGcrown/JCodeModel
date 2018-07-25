@@ -5,7 +5,7 @@ import com.sun.codemodel.*;
 /**
  * @author Crown
  * @ClassName GenerateServiceImpl
- * @Description 创建ServiceImpl层
+ * @Description 生成ServiceImpl层
  * @email haocan@foxmail.com
  * @date 2018/7/20
  */
@@ -49,7 +49,7 @@ public class GenerateServiceImpl extends BaseClass {
         // 生成类注释
         generateServiceImpl.generateClassJavaDoc();
         // 生成基本方法
-        generateServiceImpl.createBaseMethod();
+        generateServiceImpl.generateBaseMethod();
         return generateServiceImpl;
     }
 
@@ -62,24 +62,24 @@ public class GenerateServiceImpl extends BaseClass {
      * @author Crown
      * @date 2018/7/20        
      */
-    public void createBaseMethod() throws Exception {
-        createServiceImplAddMethod();
-        createServiceImplDeleteMethod();
-        createServiceImplUpdateMethod();
-        createServiceImplFindPageDataMethod();
-        createServiceImplFindByPkMethod();
+    public void generateBaseMethod() throws Exception {
+        generateServiceImplAddMethod();
+        generateServiceImplDeleteMethod();
+        generateServiceImplUpdateMethod();
+        generateServiceImplFindPageDataMethod();
+        generateServiceImplFindByPkMethod();
     }
 
 
     /**
-     * <h3>创建serviceImpl add方法</h3>
+     * <h3>生成serviceImpl add方法</h3>
      *
      * @param []
      * @return void
      * @author Crown
      * @date 2018/7/20
      */
-    public void createServiceImplAddMethod() {
+    public void generateServiceImplAddMethod() {
         // 生成addData方法
         JMethod method = this.genClass.method(JMod.PUBLIC, this.codeModel.VOID, "addData");
         // 生成参数 BaseModel、模块对象
@@ -99,14 +99,14 @@ public class GenerateServiceImpl extends BaseClass {
     }
 
     /**
-     * <h3>创建serviceImpl delete方法</h3>
+     * <h3>生成serviceImpl delete方法</h3>
      *
      * @param []
      * @return void
      * @author Crown
      * @date 2018/7/20
      */
-    public void createServiceImplDeleteMethod() throws ClassNotFoundException {
+    public void generateServiceImplDeleteMethod() throws ClassNotFoundException {
         // 生成deleteData方法
         JMethod method = this.genClass.method(JMod.PUBLIC, this.codeModel.VOID, "deleteData");
         // 生成参数 BaseModel、delIds
@@ -134,14 +134,14 @@ public class GenerateServiceImpl extends BaseClass {
 
 
     /**
-     * <h3>创建serviceImpl update方法</h3>
+     * <h3>生成serviceImpl update方法</h3>
      *
      * @param []
      * @return void
      * @author Crown
      * @date 2018/7/20
      */
-    public void createServiceImplUpdateMethod() throws Exception {
+    public void generateServiceImplUpdateMethod() throws Exception {
         // 生成deleteData方法
         JMethod method = this.genClass.method(JMod.PUBLIC, this.codeModel.VOID, "updateData");
         // 生成参数 BaseModel、模块对象
@@ -160,14 +160,14 @@ public class GenerateServiceImpl extends BaseClass {
     }
 
     /**
-     * <h3>创建serviceImpl findPageData方法</h3>
+     * <h3>生成serviceImpl findPageData方法</h3>
      *
      * @param []
      * @return void
      * @author Crown
      * @date 2018/7/20
      */
-    public void createServiceImplFindPageDataMethod() throws Exception {
+    public void generateServiceImplFindPageDataMethod() throws Exception {
         // 生成findPageData方法
         JMethod method = this.genClass.method(JMod.PUBLIC, this.codeModel.VOID, "findPageData");
         // 生成参数 BaseModel、delIdSSs
@@ -192,14 +192,14 @@ public class GenerateServiceImpl extends BaseClass {
     }
 
     /**
-     * <h3>创建serviceImpl findByPk方法</h3>
+     * <h3>生成serviceImpl findByPk方法</h3>
      *
      * @param []
      * @return void
      * @author Crown
      * @date 2018/7/20
      */
-    public void createServiceImplFindByPkMethod() throws Exception {
+    public void generateServiceImplFindByPkMethod() throws Exception {
         // 生成findDataByPk方法
         JMethod method = this.genClass.method(JMod.PUBLIC, this.codeModel.VOID, "findDataByPk");
         // 生成参数 BaseModel、delIds

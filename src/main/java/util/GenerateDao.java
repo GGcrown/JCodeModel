@@ -7,12 +7,12 @@ import com.sun.codemodel.JType;
 
 /**
  * @author Crown
- * @ClassName CreateDao
+ * @ClassName GenerateDao
  * @Description
  * @email haocan@foxmail.com
  * @date 2018/7/21
  */
-public class CreateDao extends BaseClass {
+public class GenerateDao extends BaseClass {
 
 
     /**
@@ -23,7 +23,7 @@ public class CreateDao extends BaseClass {
      * @author Crown
      * @date
      */
-    public CreateDao() {
+    public GenerateDao() {
     }
 
     /**
@@ -34,7 +34,7 @@ public class CreateDao extends BaseClass {
      * @author Crown
      * @date
      */
-    public CreateDao(JDefinedClass genClass, JType pojoType) {
+    public GenerateDao(JDefinedClass genClass, JType pojoType) {
         super(genClass, pojoType);
     }
 
@@ -46,32 +46,13 @@ public class CreateDao extends BaseClass {
      * @author Crown
      * @date 2018/7/21
      */
-    public static CreateDao initClass(String fullName, JType jType) throws Exception {
+    public static GenerateDao initClass(String fullName, JType jType) throws Exception {
         JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC, fullName, ClassType.INTERFACE);
         // 初始化实例
-        CreateDao createDao = new CreateDao(genClass,jType);
+        GenerateDao generateDao = new GenerateDao(genClass,jType);
         // 生成类注释
-        createDao.generateClassJavaDoc();
-        return createDao;
+        generateDao.generateClassJavaDoc();
+        return generateDao;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

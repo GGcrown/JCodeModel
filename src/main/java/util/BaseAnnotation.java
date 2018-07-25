@@ -102,7 +102,7 @@ public class BaseAnnotation {
         if (aopLogType == null || Objects.equals(aopLogType, "")) {
             aopLogType = CodeModelConstants.TODO;
         }
-        // 创建注解
+        // 生成注解
         JAnnotationUse annotation = this.method.annotate(this.aopLog);
         annotation.param("module", this.enumOperationModule.staticRef(aopLogModule));
         annotation.param("type", this.constantsCommon.staticRef(aopLogType));
@@ -126,7 +126,7 @@ public class BaseAnnotation {
             apiOperationHttpMethod = "POST";
         }
 
-        // 创建注解
+        // 生成注解
         JAnnotationUse annotation = method.annotate(apiOperation);
         annotation.param("value", apiOperationValue);
         annotation.param("httpMethod", apiOperationHttpMethod);

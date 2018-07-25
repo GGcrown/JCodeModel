@@ -22,7 +22,7 @@ public class CodeModelUtilTest {
 
 
     /**
-     * <h3>测试创建属性方法</h3>
+     * <h3>测试生成属性方法</h3>
      *
      * @param []
      * @return void
@@ -31,25 +31,25 @@ public class CodeModelUtilTest {
     @Test
     public void createPropertiesTest() throws Exception {
         JCodeModel codeModel = new JCodeModel();
-        // 创建文件
+        // 生成文件
         File deskDir = new File("src/main/java");
         JDefinedClass genClass = codeModel._class("com.crown.test.CreateProperties");
         String property = "user";
-        CodeModelUtil.createProperties(codeModel, genClass, property);
+        CodeModelUtil.generateProperties(codeModel, genClass, property);
         codeModel.build(new File("src/main/java"));
     }
 
     @Test
     public void createServiceAddMethodTest() throws Exception {
         JCodeModel codeModel = new JCodeModel();
-        // 创建文件
+        // 生成文件
         File deskDir = new File("src/main/java");
-        // 创建抽象类
+        // 生成抽象类
         JDefinedClass genClass = codeModel._class(JMod.NONE, "com.crown.test.StudentService", ClassType.INTERFACE);
         GenerateService generateService = new GenerateService();
         generateService.setGenClass(genClass);
         generateService.setPojoType(codeModel.parseType("Student"));
-        generateService.createServiceAddMethod();
+        generateService.generateServiceAddMethod();
         codeModel.build(new File("src/main/java"));
     }
 
@@ -87,7 +87,7 @@ public class CodeModelUtilTest {
     public void initCreateCreateDaoClass() throws Exception {
         String fullName = packageName + "StudentDao";
         String moduleType = "Student";
-        CreateDao.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType));
+        GenerateDao.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType));
         CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
 
