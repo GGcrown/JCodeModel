@@ -1,6 +1,7 @@
 package util.base;
 
 import com.sun.codemodel.*;
+import com.sun.org.apache.bcel.internal.util.Objects;
 
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
@@ -23,7 +24,7 @@ public class BaseClass<T> {
     // 模块类型
     protected JType pojoType;
     // 模块名称 (中文)
-    protected String moduleName;
+    protected String moduleName = CodeModelUtil.getModelName();
 
     /**
      * <h3>无参构造函数</h3>
@@ -144,8 +145,8 @@ public class BaseClass<T> {
      * @author Crown
      * @date 2018/7/19
      */
-    protected void generateAbstractMethod(String methodName) throws Exception {
-        generateAbstractMethod(methodName, this.pojoType);
+    protected JMethod generateAbstractMethod(String methodName) throws Exception {
+        return generateAbstractMethod(methodName, this.pojoType);
     }
 
     /**
@@ -156,8 +157,8 @@ public class BaseClass<T> {
      * @author Crown
      * @date 2018/7/19
      */
-    protected void generateAbstractMethod(String methodName, JType jType) throws Exception {
-        generateAbstractMethod(methodName, jType, jType.name());
+    protected JMethod generateAbstractMethod(String methodName, JType jType) throws Exception {
+        return generateAbstractMethod(methodName, jType, jType.name());
     }
 
     /**
@@ -168,23 +169,17 @@ public class BaseClass<T> {
      * @author Crown
      * @date 2018/7/19
      */
-    public void generateAbstractMethod(String methodName, JType jType, String paramName) throws Exception {
-        JMethod addDataMethod = genClass.method(JMod.NONE, codeModel.VOID, methodName);
+    public JMethod generateAbstractMethod(String methodName, JType jType, String paramName) throws Exception {
+        JMethod method = genClass.method(JMod.NONE, codeModel.VOID, methodName);
         // 第一个参数 baseModel
-        addDataMethod.param(CodeModelUtil.baseModel, CharUtil.stringBeginCharToLower(CodeModelUtil.baseModel.name()));
+        method.param(CodeModelUtil.baseModel, CharUtil.stringBeginCharToLower(CodeModelUtil.baseModel.name()));
         // 第二个参数
-        addDataMethod.param(jType, CharUtil.stringBeginCharToLower(paramName));
+        method.param(jType, CharUtil.stringBeginCharToLower(paramName));
         // 抛出Exception异常
-        addDataMethod._throws(CodeModelUtil.exception);
+        method._throws(CodeModelUtil.exception);
+        return method;
     }
 
-    public String getFindPageDataMethodName() {
-        return "findPageData" + this.genClass.name() + "Vo";
-    }
-
-    public String getCountPageDataMethodName() {
-        return "findPageData" + this.genClass.name() + "Vo";
-    }
 
     public JCodeModel getCodeModel() {
         return codeModel;
@@ -206,4 +201,11 @@ public class BaseClass<T> {
         this.pojoType = pojoType;
     }
 
+    public String getModuleName() {
+        return Objects.equals(moduleName, "") ? "" : CodeModelConstants.TODO;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
 }

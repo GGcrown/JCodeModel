@@ -1,4 +1,4 @@
-package util.generate;
+package util.generate.ssm;
 
 import com.sun.codemodel.ClassType;
 import com.sun.codemodel.JDefinedClass;
@@ -48,10 +48,11 @@ public class GenerateDao extends BaseClass {
      * @author Crown
      * @date 2018/7/21
      */
-    public static GenerateDao initClass(String fullName, JType jType) throws Exception {
-        JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC, fullName, ClassType.INTERFACE);
+    public static GenerateDao initClass(JType jType) throws Exception {
+        JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC,
+                CodeModelUtil.getBasePackage() + ".dao." + jType.name() + "dao", ClassType.INTERFACE);
         // 初始化实例
-        GenerateDao generateDao = new GenerateDao(genClass,jType);
+        GenerateDao generateDao = new GenerateDao(genClass, jType);
         // 生成类注释
         generateDao.generateClassJavaDoc();
         return generateDao;

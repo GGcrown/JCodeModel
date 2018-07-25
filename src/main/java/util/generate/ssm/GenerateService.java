@@ -1,9 +1,6 @@
-package util.generate;
+package util.generate.ssm;
 
-import com.sun.codemodel.ClassType;
-import com.sun.codemodel.JDefinedClass;
-import com.sun.codemodel.JMod;
-import com.sun.codemodel.JType;
+import com.sun.codemodel.*;
 import util.base.BaseClass;
 import util.base.CodeModelUtil;
 
@@ -42,12 +39,14 @@ public class GenerateService extends BaseClass<GenerateService> {
      * <h3>初始化Service类</h3>
      *
      * @param [fullName 类的全路径名称, jType 类的类型]
-     * @return test.util.generate.GenerateService
+     * @return test.util.generate.ssm.GenerateService
      * @author Crown
      * @date 2018/7/19
      */
-    public static GenerateService initServiceClass(String fullName, JType jType) throws Exception {
-        JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC, fullName, ClassType.INTERFACE);
+    public static GenerateService initServiceClass(JType jType) throws Exception {
+        JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC,
+                CodeModelUtil.getBasePackage() + ".service." + jType.name() + "Service"
+                , ClassType.INTERFACE);
         // 初始化实例
         GenerateService generateService = new GenerateService(genClass, jType);
         // 生成类注释
@@ -83,7 +82,8 @@ public class GenerateService extends BaseClass<GenerateService> {
      * @date 2018/7/19
      */
     public void generateServiceAddMethod() throws Exception {
-        generateAbstractMethod("addData");
+        JMethod method = generateAbstractMethod("addData");
+        this.generateMehotdJavaDoc(method, "新增" + this.moduleName, "");
     }
 
     /**
@@ -95,7 +95,8 @@ public class GenerateService extends BaseClass<GenerateService> {
      * @date 2018/7/19
      */
     public void generateServiceDeleteMethod() throws Exception {
-        generateAbstractMethod("deleteData", CodeModelUtil.string, "delIds");
+        JMethod method = generateAbstractMethod("deleteData", CodeModelUtil.string, "delIds");
+        this.generateMehotdJavaDoc(method, "删除" + this.moduleName, "");
     }
 
     /**
@@ -107,7 +108,8 @@ public class GenerateService extends BaseClass<GenerateService> {
      * @date 2018/7/19
      */
     public void generateServiceUpdateMethod() throws Exception {
-        generateAbstractMethod("updateData");
+        JMethod method = generateAbstractMethod("updateData");
+        this.generateMehotdJavaDoc(method, "修改" + this.moduleName, "");
     }
 
     /**
@@ -119,7 +121,8 @@ public class GenerateService extends BaseClass<GenerateService> {
      * @date 2018/7/19
      */
     public void generateServiceFindPageMethod() throws Exception {
-        generateAbstractMethod("findPageData");
+        JMethod method = generateAbstractMethod("findPageData");
+        this.generateMehotdJavaDoc(method, "分页查询" + this.moduleName, "");
     }
 
     /**
@@ -131,7 +134,8 @@ public class GenerateService extends BaseClass<GenerateService> {
      * @date 2018/7/19
      */
     public void generateServiceFindByPkMethod() throws Exception {
-        generateAbstractMethod("findDataByPk", CodeModelUtil.string, "pk");
+        JMethod method = generateAbstractMethod("findDataByPk", CodeModelUtil.string, "pk");
+        this.generateMehotdJavaDoc(method, "通过id查询" + this.moduleName, "");
     }
 
 

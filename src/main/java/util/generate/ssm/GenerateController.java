@@ -1,4 +1,4 @@
-package util.generate;
+package util.generate.ssm;
 
 import com.sun.codemodel.*;
 import util.base.*;
@@ -31,13 +31,13 @@ public class GenerateController extends BaseClass {
     /**
      * <h3></h3>
      *
-     * @param [genClass, pojoType, moduleName]
+     * @param [genClass, pojoType]
      * @return
      * @author Crown
      * @date 2018/7/21
      */
-    public GenerateController(JDefinedClass genClass, JType pojoType, String moduleName) {
-        super(genClass, pojoType, moduleName);
+    public GenerateController(JDefinedClass genClass, JType pojoType) {
+        super(genClass, pojoType);
     }
 
 
@@ -49,10 +49,11 @@ public class GenerateController extends BaseClass {
      * @author Crown
      * @date 2018/7/21
      */
-    public static GenerateController initClass(String fullName, JType jType, String aopModule, String moduleName) throws Exception {
-        JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC, fullName, ClassType.CLASS);
+    public static GenerateController initClass(JType jType, String aopModule) throws Exception {
+        JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC,
+                CodeModelUtil.getBasePackage() + ".contoller." + jType.name() + "Controller", ClassType.CLASS);
         // 初始化实例
-        GenerateController generateController = new GenerateController(genClass, jType, moduleName);
+        GenerateController generateController = new GenerateController(genClass, jType);
         generateController.setAopModule(aopModule);
         generateController.getGenClass()._extends(CodeModelUtil.baseController);
         // 生成类注释

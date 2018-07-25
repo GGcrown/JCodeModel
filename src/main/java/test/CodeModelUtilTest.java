@@ -6,10 +6,10 @@ import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;
 import org.junit.Test;
 import util.base.CodeModelUtil;
-import util.generate.GenerateController;
-import util.generate.GenerateDao;
-import util.generate.GenerateService;
-import util.generate.GenerateServiceImpl;
+import util.generate.ssm.GenerateController;
+import util.generate.ssm.GenerateDao;
+import util.generate.ssm.GenerateService;
+import util.generate.ssm.GenerateServiceImpl;
 
 import java.io.File;
 
@@ -59,7 +59,7 @@ public class CodeModelUtilTest {
 
     @Test
     public void initCreateServiceClass() throws Exception {
-        GenerateService.initServiceClass("com.crown.test.StudentService", CodeModelUtil.codeModel.parseType("Student"));
+        GenerateService.initServiceClass(CodeModelUtil.codeModel.parseType("Student"));
         CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
 
@@ -75,7 +75,7 @@ public class CodeModelUtilTest {
     public void initCreateServiceImplClass() throws Exception {
         String fullName = packageName + "StudentServiceImpl";
         String moduleType = "Student";
-        GenerateServiceImpl.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType));
+        GenerateServiceImpl.initClass(CodeModelUtil.codeModel.parseType(moduleType));
         CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
 
@@ -91,7 +91,7 @@ public class CodeModelUtilTest {
     public void initCreateCreateDaoClass() throws Exception {
         String fullName = packageName + "StudentDao";
         String moduleType = "Student";
-        GenerateDao.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType));
+        GenerateDao.initClass(CodeModelUtil.codeModel.parseType(moduleType));
         CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
 
@@ -99,8 +99,7 @@ public class CodeModelUtilTest {
     public void intCreateControllerClassTest() throws Exception {
         String fullName = packageName + "StudentController";
         String moduleType = "Student";
-        GenerateController.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType), "No101"
-                , "学生");
+        GenerateController.initClass(CodeModelUtil.codeModel.parseType(moduleType), "No101");
         CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
 

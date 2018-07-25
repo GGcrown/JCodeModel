@@ -14,6 +14,10 @@ public class CodeModelUtil {
 
     // CodeModel 模块代码
     public static JCodeModel codeModel = new JCodeModel();
+    // 模块名称(中文)
+    private static String modelName;
+    // 底层包路径
+    public static String basePackage = "";
     // Exception 异常
     public static JClass exception = codeModel.ref("java.lang.Exception");
     // BusinessException 业务异常
@@ -141,5 +145,19 @@ public class CodeModelUtil {
         }
     }
 
+    public static String getBasePackage() {
+        return basePackage;
+    }
 
+    public static void setBasePackage(String basePackage) {
+        CodeModelUtil.basePackage = basePackage;
+    }
+
+    public static String getModelName() {
+        return modelName;
+    }
+
+    public static void setModelName(String modelName) {
+        CodeModelUtil.modelName = modelName;
+    }
 }

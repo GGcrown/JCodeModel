@@ -1,4 +1,4 @@
-package util.generate;
+package util.generate.ssm;
 
 import com.sun.codemodel.*;
 import util.base.BaseClass;
@@ -41,12 +41,14 @@ public class GenerateServiceImpl extends BaseClass {
      * <h3>初始化类</h3>
      *
      * @param [fullName, jType]
-     * @return test.util.generate.GenerateServiceImpl
+     * @return test.util.generate.ssm.GenerateServiceImpl
      * @author Crown
      * @date 2018/7/21        
      */
-    public static GenerateServiceImpl initClass(String fullName, JType jType) throws Exception {
-        JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC, fullName, ClassType.CLASS);
+    public static GenerateServiceImpl initClass(JType jType) throws Exception {
+        JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC,
+                CodeModelUtil.getBasePackage() + ".service.impl." + jType.name() + "ServiceImpl"
+                , ClassType.CLASS);
         // 初始化实例
         GenerateServiceImpl generateServiceImpl = new GenerateServiceImpl(genClass, jType);
         // 生成类注释
@@ -93,6 +95,8 @@ public class GenerateServiceImpl extends BaseClass {
         // 方法体
         JBlock methodBody = method.body();
         methodBody.invoke(typePram, "insert").arg(typePram);
+        // 生成注释
+        this.generateMehotdJavaDoc(method, "新增" + this.moduleName, "");
 
         // 生成方法如下:
         // @Override
@@ -124,6 +128,8 @@ public class GenerateServiceImpl extends BaseClass {
                 .invoke("equals").arg(typePram)));
         ifCondition._then()._throw(JExpr._new(CodeModelUtil.businessException).arg("请选择删除的记录"));
         methodBody.invoke(JExpr._new(pojoType), "deleteInPkValue_isdeleted").arg(typePram);
+        // 生成注释
+        this.generateMehotdJavaDoc(method, "删除" + this.moduleName, "");
 
         // 生成方法如下：
         // @Override
@@ -155,6 +161,8 @@ public class GenerateServiceImpl extends BaseClass {
         // 方法体
         JBlock methodBody = method.body();
         methodBody.invoke(typePram, "update").arg(typePram);
+        // 生成注释
+        this.generateMehotdJavaDoc(method, "修改" + this.moduleName, "");
 
         // @Override
         // public void updateData(BaseModel baseModel, SalesLoan salesLoan) throws Exception {
@@ -185,6 +193,8 @@ public class GenerateServiceImpl extends BaseClass {
         JVar list = methodBody.decl(CodeModelUtil.list, "list");
         methodBody.assign(list, methodBody.invoke(typePram, getFindPageDataMethodName()).arg(baseModelParam.invoke("getQueryParams")));
         methodBody.invoke(baseModelParam, "setData").arg(list);
+        // 生成注释
+        this.generateMehotdJavaDoc(method, "分页查询" + this.moduleName, "");
 
         // @Override
         // public void findPageData(BaseModel baseModel, SalesLoan salesLoan) throws Exception {
@@ -217,6 +227,8 @@ public class GenerateServiceImpl extends BaseClass {
                 .invoke("equals").arg(typePram)));
         ifCondition._then()._throw(JExpr._new(CodeModelUtil.businessException).arg("查询记录主键id不能为空"));
         methodBody.invoke(JExpr._new(pojoType), "deleteInPkValue_isdeleted").arg(typePram);
+        // 生成注释
+        this.generateMehotdJavaDoc(method, "通过id查询" + this.moduleName, "");
 
         // @Override
         // public void findDataByPk(BaseModel baseModel, String pk) throws Exception {
@@ -227,4 +239,11 @@ public class GenerateServiceImpl extends BaseClass {
         // }
     }
 
+    public String getFindPageDataMethodName() {
+        return "findPageData" + this.genClass.name() + "Vo";
+    }
+
+    public String getCountPageDataMethodName() {
+        return "findPageData" + this.genClass.name() + "Vo";
+    }
 }
