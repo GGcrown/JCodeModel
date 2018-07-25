@@ -27,12 +27,14 @@ public class CodeModelUtil {
     public static JClass list;
     // ArrayList类型
     public static JClass arrayList;
+    // 基础控制类
+    public static JClass baseController;
 
 
     /*
      * 注解类
      */
-    // Autowired 类
+    // Autowired 自动注入类
     public static JClass autowired;
     // PathVariable 变量类
     public static JClass pathVariable;
@@ -48,6 +50,8 @@ public class CodeModelUtil {
             arrayList = codeModel.ref("jvaa.lang.ArrayList");
             autowired = codeModel.ref("org.springframework.beans.factory.annotation.Autowire");
             pathVariable = codeModel.ref("org.springframework.web.bind.annotation.PathVariable");
+            baseController = codeModel.ref("org.zsc.common.controller.BaseController");
+
         } catch (Exception e) {
             e.printStackTrace();
         }

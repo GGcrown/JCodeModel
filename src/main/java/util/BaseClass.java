@@ -5,6 +5,7 @@ import com.sun.codemodel.*;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Crown
@@ -21,6 +22,8 @@ public class BaseClass<T> {
     protected JDefinedClass genClass;
     // 模块类型
     protected JType pojoType;
+    // 模块名称 (中文)
+    protected String moduleName;
 
     /**
      * <h3>无参构造函数</h3>
@@ -47,6 +50,20 @@ public class BaseClass<T> {
     }
 
     /**
+     * <h3></h3>
+     *
+     * @param [genClass, pojoType, moduleName]
+     * @return
+     * @author Crown
+     * @date
+     */
+    public BaseClass(JDefinedClass genClass, JType pojoType, String moduleName) {
+        this.genClass = genClass;
+        this.pojoType = pojoType;
+        this.moduleName = moduleName;
+    }
+
+    /**
      * <h3>生成类注释</h3>
      *
      * @param []
@@ -54,15 +71,53 @@ public class BaseClass<T> {
      * @author Crown
      * @date 2018/7/20
      */
-    protected void createClassJavaDoc() {
+    protected void generateClassJavaDoc() {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/d");
-        JDocComment javaDoc = genClass.javadoc();
-        javaDoc.addXdoclet("ClassName " + genClass.name());
-        javaDoc.addXdoclet("author Crown");
-        javaDoc.addXdoclet("Description TODO");
-        javaDoc.addXdoclet("email haocan@foxmail.com");
-        javaDoc.addXdoclet("date " + sdf.format(date));
+        JDocComment javadoc = genClass.javadoc();
+        javadoc.addXdoclet("ClassName " + genClass.name());
+        javadoc.addXdoclet("author Crown");
+        javadoc.addXdoclet("Description " + CodeModelConstants.TODO);
+        javadoc.addXdoclet("email haocan@foxmail.com");
+        javadoc.addXdoclet("date " + sdf.format(date));
+    }
+
+    /**
+     * <h3>生成方法注释 在方法参数设置好后再调用此方法</h3>
+     *
+     * @param [method]
+     * @return void
+     * @author Crown
+     * @date 2018/7/24
+     */
+    protected void generateMehotdJavaDoc(JMethod method) {
+        generateMehotdJavaDoc(method, CodeModelConstants.TODO, "");
+    }
+
+    /**
+     * <h3>生成方法注释 在方法参数设置好后再调用此方法</h3>
+     *
+     * @param [method, annotation]
+     * @return void
+     * @author Crown
+     * @date 2018/7/24
+     */
+    protected void generateMehotdJavaDoc(JMethod method, String annotation, String returnType) {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/d");
+        List<JVar> params = method.params();
+        StringBuilder str = new StringBuilder();
+        for (JVar param : params) {
+            str.append("," + param.name());
+        }
+        String paramStr = str.substring(1, str.length());
+        JDocComment javadoc = method.javadoc();
+        javadoc.add("<h3>" + annotation + "</h3>\n\n");
+        javadoc.add("@param [" + paramStr + "] \n");
+        javadoc.add("@return " + returnType + "\n");
+        javadoc.add("@author Crown\n");
+        javadoc.add("@date " + sdf.format(date));
+
     }
 
     /**

@@ -4,12 +4,12 @@ import com.sun.codemodel.*;
 
 /**
  * @author Crown
- * @ClassName CreateServiceImpl
+ * @ClassName GenerateServiceImpl
  * @Description 创建ServiceImpl层
  * @email haocan@foxmail.com
  * @date 2018/7/20
  */
-public class CreateServiceImpl extends BaseClass {
+public class GenerateServiceImpl extends BaseClass {
 
     /**
      * <h3>无参构造函数</h3>
@@ -19,7 +19,7 @@ public class CreateServiceImpl extends BaseClass {
      * @author Crown
      * @date
      */
-    public CreateServiceImpl() {
+    public GenerateServiceImpl() {
     }
 
     /**
@@ -30,7 +30,7 @@ public class CreateServiceImpl extends BaseClass {
      * @author Crown
      * @date
      */
-    public CreateServiceImpl(JDefinedClass genClass, JType pojoType) {
+    public GenerateServiceImpl(JDefinedClass genClass, JType pojoType) {
         super(genClass, pojoType);
     }
 
@@ -38,19 +38,19 @@ public class CreateServiceImpl extends BaseClass {
      * <h3>初始化类</h3>
      *
      * @param [fullName, jType]
-     * @return test.util.CreateServiceImpl
+     * @return test.util.GenerateServiceImpl
      * @author Crown
      * @date 2018/7/21        
      */
-    public static CreateServiceImpl initClass(String fullName, JType jType) throws Exception {
+    public static GenerateServiceImpl initClass(String fullName, JType jType) throws Exception {
         JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC, fullName, ClassType.CLASS);
         // 初始化实例
-        CreateServiceImpl createServiceImpl = new CreateServiceImpl(genClass, jType);
+        GenerateServiceImpl generateServiceImpl = new GenerateServiceImpl(genClass, jType);
         // 生成类注释
-        createServiceImpl.createClassJavaDoc();
+        generateServiceImpl.generateClassJavaDoc();
         // 生成基本方法
-        createServiceImpl.createBaseMethod();
-        return createServiceImpl;
+        generateServiceImpl.createBaseMethod();
+        return generateServiceImpl;
     }
 
 

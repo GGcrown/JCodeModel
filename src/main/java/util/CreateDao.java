@@ -51,7 +51,7 @@ public class CreateDao extends BaseClass {
         // 初始化实例
         CreateDao createDao = new CreateDao(genClass,jType);
         // 生成类注释
-        createDao.createClassJavaDoc();
+        createDao.generateClassJavaDoc();
         return createDao;
     }
 

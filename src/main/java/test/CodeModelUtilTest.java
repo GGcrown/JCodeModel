@@ -46,16 +46,16 @@ public class CodeModelUtilTest {
         File deskDir = new File("src/main/java");
         // 创建抽象类
         JDefinedClass genClass = codeModel._class(JMod.NONE, "com.crown.test.StudentService", ClassType.INTERFACE);
-        CreateService createService = new CreateService();
-        createService.setGenClass(genClass);
-        createService.setPojoType(codeModel.parseType("Student"));
-        createService.createServiceAddMethod();
+        GenerateService generateService = new GenerateService();
+        generateService.setGenClass(genClass);
+        generateService.setPojoType(codeModel.parseType("Student"));
+        generateService.createServiceAddMethod();
         codeModel.build(new File("src/main/java"));
     }
 
     @Test
     public void initCreateServiceClass() throws Exception {
-        CreateService.initServiceClass("com.crown.test.StudentService", CodeModelUtil.codeModel.parseType("Student"));
+        GenerateService.initServiceClass("com.crown.test.StudentService", CodeModelUtil.codeModel.parseType("Student"));
         CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
 
@@ -71,7 +71,7 @@ public class CodeModelUtilTest {
     public void initCreateServiceImplClass() throws Exception {
         String fullName = packageName + "StudentServiceImpl";
         String moduleType = "Student";
-        CreateServiceImpl.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType));
+        GenerateServiceImpl.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType));
         CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
 
@@ -92,16 +92,13 @@ public class CodeModelUtilTest {
     }
 
     @Test
-    public void intCreateControllerClassTest()throws Exception{
+    public void intCreateControllerClassTest() throws Exception {
         String fullName = packageName + "StudentController";
         String moduleType = "Student";
-        CreateController.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType));
+        GenerateController.initClass(fullName, CodeModelUtil.codeModel.parseType(moduleType), "No101"
+                , "学生");
         CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
-
-
-
-
 
 
 }
