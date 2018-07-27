@@ -54,6 +54,8 @@ public class GenerateServiceImpl extends BaseClass {
         GenerateServiceImpl generateServiceImpl = new GenerateServiceImpl(genClass, jType);
         // 生成类注释
         generateServiceImpl.generateClassJavaDoc();
+        // 生成类注解
+        generateServiceImpl.getGenClass().annotate(BaseAnnotation.service);
         // 生成基本方法
         generateServiceImpl.generateBaseMethod();
         return generateServiceImpl;

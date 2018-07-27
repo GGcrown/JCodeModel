@@ -116,7 +116,7 @@ public class GenerateSSM {
     @Test
     public void generatorTest() throws Exception {
         try {
-            GenerateSSM.generator();
+            GenerateSSM.generatorMyBatis();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,7 +130,7 @@ public class GenerateSSM {
      * @author Crown
      * @date 2018/7/27        
      */
-    public static void generator() throws Exception {
+    public static void generatorMyBatis() throws Exception {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
         // 指定 逆向工程配置文件

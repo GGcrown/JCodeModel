@@ -41,6 +41,8 @@ public class BaseAnnotation {
     public static JClass modelBind;
     // ApiModelProperty swagger属性文档
     public static JClass apiModelProperty;
+    // Service 服务层注解
+    public static JClass service;
 
 
     static {
@@ -56,6 +58,7 @@ public class BaseAnnotation {
         apiModel = CodeModelUtil.codeModel.ref("com.wordnik.swagger.annotations.ApiModel");
         modelBind = CodeModelUtil.codeModel.ref("org.zsc.base.annotation.ModelBind");
         apiModelProperty = CodeModelUtil.codeModel.ref("com.wordnik.swagger.annotations.ApiModelProperty");
+        service = CodeModelUtil.codeModel.ref("org.springframework.stereotype.Service");
     }
 
     /**
