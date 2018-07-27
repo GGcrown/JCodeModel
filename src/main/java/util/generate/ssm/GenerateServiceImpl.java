@@ -1,6 +1,7 @@
 package util.generate.ssm;
 
 import com.sun.codemodel.*;
+import util.base.BaseAnnotation;
 import util.base.BaseClass;
 import util.base.CharUtil;
 import util.base.CodeModelUtil;
@@ -97,6 +98,8 @@ public class GenerateServiceImpl extends BaseClass {
         methodBody.invoke(typePram, "insert").arg(typePram);
         // 生成注释
         this.generateMehotdJavaDoc(method, "新增" + this.moduleName, "");
+        // 生成注解
+        method.annotate(BaseAnnotation.override);
 
         // 生成方法如下:
         // @Override
@@ -130,6 +133,8 @@ public class GenerateServiceImpl extends BaseClass {
         methodBody.invoke(JExpr._new(pojoType), "deleteInPkValue_isdeleted").arg(typePram);
         // 生成注释
         this.generateMehotdJavaDoc(method, "删除" + this.moduleName, "");
+        // 生成注解
+        method.annotate(BaseAnnotation.override);
 
         // 生成方法如下：
         // @Override
@@ -163,6 +168,8 @@ public class GenerateServiceImpl extends BaseClass {
         methodBody.invoke(typePram, "update").arg(typePram);
         // 生成注释
         this.generateMehotdJavaDoc(method, "修改" + this.moduleName, "");
+        // 生成注解
+        method.annotate(BaseAnnotation.override);
 
         // @Override
         // public void updateData(BaseModel baseModel, SalesLoan salesLoan) throws Exception {
@@ -195,6 +202,8 @@ public class GenerateServiceImpl extends BaseClass {
         methodBody.invoke(baseModelParam, "setData").arg(list);
         // 生成注释
         this.generateMehotdJavaDoc(method, "分页查询" + this.moduleName, "");
+        // 生成注解
+        method.annotate(BaseAnnotation.override);
 
         // @Override
         // public void findPageData(BaseModel baseModel, SalesLoan salesLoan) throws Exception {
@@ -229,6 +238,8 @@ public class GenerateServiceImpl extends BaseClass {
         methodBody.invoke(JExpr._new(pojoType), "deleteInPkValue_isdeleted").arg(typePram);
         // 生成注释
         this.generateMehotdJavaDoc(method, "通过id查询" + this.moduleName, "");
+        // 生成注解
+        method.annotate(BaseAnnotation.override);
 
         // @Override
         // public void findDataByPk(BaseModel baseModel, String pk) throws Exception {

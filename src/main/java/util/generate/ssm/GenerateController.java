@@ -40,26 +40,31 @@ public class GenerateController extends BaseClass {
         super(genClass, pojoType);
     }
 
-
     /**
      * <h3>初始化类</h3>
      *
-     * @param []
-     * @return void
+     * @param [jType, aopModule]
+     * @return util.generate.ssm.GenerateController
      * @author Crown
-     * @date 2018/7/21
+     * @date 2018/7/26
      */
     public static GenerateController initClass(JType jType, String aopModule) throws Exception {
         JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC,
-                CodeModelUtil.getBasePackage() + ".contoller." + jType.name() + "Controller", ClassType.CLASS);
+                CodeModelUtil.getBasePackage() + ".controller." + jType.name() + "Controller", ClassType.CLASS);
         // 初始化实例
         GenerateController generateController = new GenerateController(genClass, jType);
         generateController.setAopModule(aopModule);
+        // 继承BaseController
         generateController.getGenClass()._extends(CodeModelUtil.baseController);
         // 生成类注释
-        generateController.generateClassJavaDoc();
+        generateController.generateClassJavaDoc(generateController.getModuleName() + "控制层");
+        // 生成类注解
+        BaseAnnotation baseAnnotation = new BaseAnnotation();
+        baseAnnotation.generateControllerAnnotation(generateController.getGenClass(), generateController.pojoType.name());
+
+
         // 生成基本方法
-        generateController.createBaseMethod();
+        generateController.generateBaseMethod();
         return generateController;
     }
 
@@ -71,7 +76,7 @@ public class GenerateController extends BaseClass {
      * @author Crown
      * @date 2018/7/20
      */
-    public void createBaseMethod() throws Exception {
+    public void generateBaseMethod() throws Exception {
         generateProperty();
         generateControllerAddMethod();
         generateControllerDeleteMethod();

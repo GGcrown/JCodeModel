@@ -1,9 +1,6 @@
 package util.base;
 
-import com.sun.codemodel.JAnnotationUse;
-import com.sun.codemodel.JClass;
-import com.sun.codemodel.JMethod;
-import com.sun.codemodel.JType;
+import com.sun.codemodel.*;
 import com.sun.org.apache.bcel.internal.util.Objects;
 
 
@@ -17,19 +14,49 @@ import com.sun.org.apache.bcel.internal.util.Objects;
 public class BaseAnnotation {
 
     // 方法
-    private JMethod method;
+    public static JMethod method;
     // Aoplog 切面日志类
-    private JClass aopLog;
+    public static JClass aopLog;
     // ApiOperation 接口文档注释类
-    private JClass apiOperation;
+    public static JClass apiOperation;
     // RequestMapping 映射请求路径
-    private JClass requestMapping;
+    public static JClass requestMapping;
     // EnumOperationModule 模块枚举类
-    private JClass enumOperationModule;
+    public static JClass enumOperationModule;
     // ConstantsCommon 基本常量类
-    private JClass constantsCommon;
+    public static JClass constantsCommon;
     // 模块类型
     private JType pojoType;
+    // Controoler注解类
+    public static JClass controller;
+    // 返回体
+    public static JClass responseBody;
+    // Overrride 重写注解
+    public static JClass override;
+    // ModelDao<> po继承
+    public static JClass modelDao;
+    // ApiModel 文档模型
+    public static JClass apiModel;
+    // ModelBind 模块绑定
+    public static JClass modelBind;
+    // ApiModelProperty swagger属性文档
+    public static JClass apiModelProperty;
+
+
+    static {
+        aopLog = CodeModelUtil.codeModel.ref("AopLog");
+        apiOperation = CodeModelUtil.codeModel.ref("ApiOperation");
+        requestMapping = CodeModelUtil.codeModel.ref("RequestMapping");
+        enumOperationModule = CodeModelUtil.codeModel.ref("EnumOperationModule");
+        constantsCommon = CodeModelUtil.codeModel.ref("ConstantsCommon");
+        controller = CodeModelUtil.codeModel.ref("org.springframework.stereotype.Controller");
+        responseBody = CodeModelUtil.codeModel.ref("org.springframework.web.bind.annotation.ResponseBody");
+        override = CodeModelUtil.codeModel.ref("java.lang.annotation.Override");
+        modelDao = CodeModelUtil.codeModel.ref("org.zsc.base.annotation.ModelDao");
+        apiModel = CodeModelUtil.codeModel.ref("com.wordnik.swagger.annotations.ApiModel");
+        modelBind = CodeModelUtil.codeModel.ref("org.zsc.base.annotation.ModelBind");
+        apiModelProperty = CodeModelUtil.codeModel.ref("com.wordnik.swagger.annotations.ApiModelProperty");
+    }
 
     /**
      * <h3>无参构造函数</h3>
@@ -41,16 +68,12 @@ public class BaseAnnotation {
      */
     public BaseAnnotation() {
         // 初始化类
-        // aopLog = CodeModelUtil.codeModel.ref("org.zsc.common.aop.AopLog");
-        // apiOperation = CodeModelUtil.codeModel.ref("com.wordnik.swagger.annotations.ApiOperation");
-        // requestMapping = CodeModelUtil.codeModel.ref("org.springframework.web.bind.annotation.RequestMapping");
-        // enumOperationModule = CodeModelUtil.codeModel.ref("org.zsc.common.em.EnumOperationModule");
-        // constantsCommon = CodeModelUtil.codeModel.ref("org.zsc.common.constants.ConstantsCommon");
-        aopLog = CodeModelUtil.codeModel.ref("AopLog");
+/*        aopLog = CodeModelUtil.codeModel.ref("AopLog");
         apiOperation = CodeModelUtil.codeModel.ref("ApiOperation");
         requestMapping = CodeModelUtil.codeModel.ref("RequestMapping");
         enumOperationModule = CodeModelUtil.codeModel.ref("EnumOperationModule");
         constantsCommon = CodeModelUtil.codeModel.ref("ConstantsCommon");
+        controller = CodeModelUtil.codeModel.ref("org.zsc.common.controller.BaseController");*/
     }
 
     /**
@@ -63,7 +86,7 @@ public class BaseAnnotation {
      */
     public BaseAnnotation(JMethod method, JType pojoType) {
         this();
-        this.method = method;
+        BaseAnnotation.method = method;
         this.pojoType = pojoType;
     }
 
@@ -103,9 +126,9 @@ public class BaseAnnotation {
             aopLogType = CodeModelConstants.TODO;
         }
         // 生成注解
-        JAnnotationUse annotation = this.method.annotate(this.aopLog);
-        annotation.param("module", this.enumOperationModule.staticRef(aopLogModule));
-        annotation.param("type", this.constantsCommon.staticRef(aopLogType));
+        JAnnotationUse annotation = method.annotate(aopLog);
+        annotation.param("module", enumOperationModule.staticRef(aopLogModule));
+        annotation.param("type", constantsCommon.staticRef(aopLogType));
         annotation.param("saveLog", aopLogSaveLog);
     }
 
@@ -146,8 +169,27 @@ public class BaseAnnotation {
         if (requestMappingValue == null || Objects.equals(requestMappingValue, "")) {
             requestMappingValue = CodeModelConstants.TODO;
         }
-        JAnnotationUse annotation = this.method.annotate(requestMapping);
+        JAnnotationUse annotation = method.annotate(requestMapping);
         annotation.param("value", requestMappingValue);
     }
+
+    /**
+     * <h3>生成控制层注解</h3>
+     * 生成三个注解 @Controller、@ResponseBody、@RequestMapping
+     *
+     * @param [genClass, mapping]
+     * @return void
+     * @author Crown
+     * @date 2018/7/26        
+     */
+    public void generateControllerAnnotation(JDefinedClass genClass, String mapping) {
+        if (mapping == null || Objects.equals(mapping, "")) {
+            mapping = CodeModelConstants.TODO;
+        }
+        genClass.annotate(controller);
+        genClass.annotate(responseBody);
+        genClass.annotate(requestMapping).param("value", mapping);
+    }
+
 
 }

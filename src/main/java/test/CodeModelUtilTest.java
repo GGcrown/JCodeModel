@@ -6,10 +6,7 @@ import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;
 import org.junit.Test;
 import util.base.CodeModelUtil;
-import util.generate.ssm.GenerateController;
-import util.generate.ssm.GenerateDao;
-import util.generate.ssm.GenerateService;
-import util.generate.ssm.GenerateServiceImpl;
+import util.generate.ssm.*;
 
 import java.io.File;
 
@@ -39,7 +36,7 @@ public class CodeModelUtilTest {
         File deskDir = new File("src/main/java");
         JDefinedClass genClass = codeModel._class("com.crown.test.CreateProperties");
         String property = "user";
-        CodeModelUtil.generateProperties(codeModel, genClass, property);
+        // CodeModelUtil.generateProperties(codeModel, genClass, property);
         codeModel.build(new File("src/main/java"));
     }
 
@@ -101,6 +98,14 @@ public class CodeModelUtilTest {
         String moduleType = "Student";
         GenerateController.initClass(CodeModelUtil.codeModel.parseType(moduleType), "No101");
         CodeModelUtil.codeModel.build(new File("src/main/java"));
+    }
+
+    @Test
+    public void intGeneratePoTest() throws Exception {
+        CodeModelUtil.setModelName("xixi");
+        CodeModelUtil.setBasePackage("wang.crown9527.test");
+        // GeneratePo generatePo = GeneratePo.iniClass(SysUser.class);
+        // CodeModelUtil.codeModel.build(new File("src/main/java"));
     }
 
 

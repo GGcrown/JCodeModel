@@ -2,6 +2,7 @@ package util.base;
 
 
 import com.sun.codemodel.*;
+import com.sun.org.apache.bcel.internal.util.Objects;
 
 /**
  * @author Crown
@@ -54,7 +55,7 @@ public class CodeModelUtil {
             arrayList = codeModel.ref("jvaa.lang.ArrayList");
             autowired = codeModel.ref("org.springframework.beans.factory.annotation.Autowire");
             pathVariable = codeModel.ref("org.springframework.web.bind.annotation.PathVariable");
-            baseController = codeModel.ref("org.zsc.common.controller.BaseController");
+            baseController = CodeModelUtil.codeModel.ref("org.zsc.common.controller.BaseController");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,8 +70,8 @@ public class CodeModelUtil {
      * @return void
      * @author Crown
      */
-    public static void generateProperties(JCodeModel codeModel, JDefinedClass genClass, String propertyName) throws ClassNotFoundException {
-        generateProperties(codeModel, genClass, codeModel.parseType("String"), propertyName);
+    public static void generateProperties(JDefinedClass genClass, String propertyName) throws ClassNotFoundException {
+        generateProperties(genClass, codeModel.parseType("String"), propertyName);
     }
 
     /**
@@ -80,33 +81,33 @@ public class CodeModelUtil {
      * @return void
      * @author Crown
      */
-    public static void generateProperties(JCodeModel codeModel, JDefinedClass genClass, JType jType, String propertyName) {
-        generateProperties(codeModel, genClass, JMod.PRIVATE, jType, propertyName);
+    public static void generateProperties(JDefinedClass genClass, JType jType, String propertyName) {
+        generateProperties(genClass, JMod.PRIVATE, jType, propertyName);
     }
 
     /**
      * <h3>生成属性方法 包含GetSet方法</h3>
      *
-     * @param [codeModel, genClass, mods, jType, propertyName]
+     * @param [genClass, mods, jType, propertyName]
      * @return void
      * @author Crown
      */
-    public static void generateProperties(JCodeModel codeModel, JDefinedClass genClass, int mods, JType jType, String propertyName) {
+    public static void generateProperties(JDefinedClass genClass, int mods, JType jType, String propertyName) {
         // 生成属性
         JFieldVar field = genClass.field(mods, jType, propertyName);
-        generateGetSetMethod(codeModel, genClass, jType, propertyName);
+        generateGetSetMethod(genClass, jType, propertyName);
     }
 
     /**
      * <h3>生成GetSet方法</h3>
      *
-     * @param [codeModel, genClass, jType, propertyName]
+     * @param [genClass, jType, propertyName]
      * @return void
      * @author Crown
      */
-    public static void generateGetSetMethod(JCodeModel codeModel, JDefinedClass genClass, JType jType, String propertyName) {
-        generateGetMethod(codeModel, genClass, jType, propertyName);
-        generateSetMethod(codeModel, genClass, propertyName);
+    public static void generateGetSetMethod(JDefinedClass genClass, JType jType, String propertyName) {
+        generateGetMethod(genClass, jType, propertyName);
+        generateSetMethod(genClass, jType, propertyName);
     }
 
     /**
@@ -116,12 +117,11 @@ public class CodeModelUtil {
      * @return void
      * @author Crown
      */
-    public static void generateGetMethod(JCodeModel codeModel, JDefinedClass genClass, JType jType, String propertyName) {
+    public static void generateGetMethod(JDefinedClass genClass, JType jType, String propertyName) {
         // 生成方法
         JMethod method = genClass.method(JMod.PUBLIC, jType, "get" + CharUtil.stringBeginCharToUpper(propertyName));
         // 方法体
         JBlock methodBlock = method.body();
-        methodBlock.decl(codeModel.INT, "te");
         methodBlock._return(JExpr.refthis(propertyName));
     }
 
@@ -132,17 +132,13 @@ public class CodeModelUtil {
      * @return void
      * @author Crown
      */
-    public static void generateSetMethod(JCodeModel codeModel, JDefinedClass genClass, String propertyName) {
-        try {
-            // 生成方法
-            JMethod method = genClass.method(JMod.PUBLIC, codeModel.VOID, "set" + CharUtil.stringBeginCharToUpper(propertyName));
-            JVar param = method.param(codeModel.parseType("String"), propertyName);
-            // 方法体
-            JBlock methodBlock = method.body();
-            methodBlock.assign(JExpr.refthis(propertyName), JExpr.ref(propertyName));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public static void generateSetMethod(JDefinedClass genClass, JType jType, String propertyName) {
+        // 生成方法
+        JMethod method = genClass.method(JMod.PUBLIC, codeModel.VOID, "set" + CharUtil.stringBeginCharToUpper(propertyName));
+        JVar param = method.param(jType, propertyName);
+        // 方法体
+        JBlock methodBlock = method.body();
+        methodBlock.assign(JExpr.refthis(propertyName), JExpr.ref(propertyName));
     }
 
     public static String getBasePackage() {
@@ -154,7 +150,7 @@ public class CodeModelUtil {
     }
 
     public static String getModelName() {
-        return modelName;
+        return Objects.equals(modelName, "") ? CodeModelConstants.TODO : modelName;
     }
 
     public static void setModelName(String modelName) {

@@ -192,7 +192,7 @@ public class HelloCodeModel {
         JMethod forLoopTest = loopStatementClass.method(JMod.PUBLIC, cm.VOID, "forLoopTest");
         JBlock forLoopBody = forLoopTest.body();
         JForLoop forLoop = forLoopBody._for();
-        forLoop.init(cm.INT,"i", JExpr.lit(0));
+        forLoop.init(cm.INT, "i", JExpr.lit(0));
         forLoop.test(JExpr.ref("i").lt(JExpr.lit(10)));
         forLoop.update(JExpr.ref("i").incr());
         // forLoop.update(JExpr.ref("i").assignPlus(JExpr.lit(1)));
@@ -204,7 +204,7 @@ public class HelloCodeModel {
     }
 
     @Test
-    public void tttTest()throws Exception{
+    public void tttTest() throws Exception {
         JCodeModel cm = new JCodeModel();
         JDefinedClass loopStatementClass = cm._class("com.example.test.LoopStatementClass");
 
@@ -213,5 +213,19 @@ public class HelloCodeModel {
     }
 
 
+    @Test
+    public void sysUserTest() throws Exception {
+        // Class<SysUser> dcSysUserClass = SysUser.class;
+        // // 反射获类的属性
+        // Field[] fields = dcSysUserClass.getDeclaredFields();
+        // JCodeModel cm = new JCodeModel();
+        // JDefinedClass genClass = cm._class("wang.crown9527.test.po." + dcSysUserClass.getSimpleName());
+        // for (Field field : fields) {
+        //     // 生成属性
+        //     CodeModelUtil.generateProperties(genClass, CodeModelUtil.codeModel.ref(field.getType().getSimpleName()), field.getName());
+        // }
+        // genClass._extends(CodeModelUtil.codeModel.ref("Xixi<xixi>"));
+        // cm.build(new File("src/main/java"));
+    }
 
 }

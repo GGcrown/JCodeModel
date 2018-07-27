@@ -4,6 +4,8 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
+
+
     <context id="testTables" targetRuntime="MyBatis3">
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
@@ -45,7 +47,10 @@
         <!--</javaClientGenerator>-->
         <!-- 指定数据库表 -->
         <table schema="" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="flase" tableName="dc_sys_user"></table>
+               enableSelectByExample="false" selectByExampleQueryId="flase" tableName="dc_sys_user">
+            <!-- 让数据库中表字段的名称和po类属性完全一样，不自动下划线样式转成驼峰命名法-->
+            <property name="useActualColumnNames" value="true"/>
+        </table>
 
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">
@@ -53,3 +58,6 @@
         </table> -->
     </context>
 </generatorConfiguration>
+
+
+

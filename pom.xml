@@ -7,6 +7,18 @@
     <groupId>wang.crown9527.JCodeModel</groupId>
     <artifactId>JCodeModel</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>6</source>
+                    <target>6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -32,6 +44,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.28</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>hhsales</groupId>
+            <artifactId>hhsales</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>

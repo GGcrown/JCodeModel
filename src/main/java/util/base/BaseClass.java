@@ -64,6 +64,10 @@ public class BaseClass<T> {
         this.moduleName = moduleName;
     }
 
+    protected void generateClassJavaDoc() {
+        generateClassJavaDoc(CodeModelConstants.TODO);
+    }
+
     /**
      * <h3>生成类注释</h3>
      *
@@ -72,15 +76,15 @@ public class BaseClass<T> {
      * @author Crown
      * @date 2018/7/20
      */
-    protected void generateClassJavaDoc() {
+    protected void generateClassJavaDoc(String description) {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/d");
         JDocComment javadoc = genClass.javadoc();
-        javadoc.addXdoclet("ClassName " + genClass.name());
-        javadoc.addXdoclet("author Crown");
-        javadoc.addXdoclet("Description " + CodeModelConstants.TODO);
-        javadoc.addXdoclet("email haocan@foxmail.com");
-        javadoc.addXdoclet("date " + sdf.format(date));
+        javadoc.add("author Crown\n");
+        javadoc.add("className " + this.genClass.name() + "\n");
+        javadoc.add("description " + description + "\n");
+        javadoc.add("email haocao@foxmail.com" + "\n");
+        javadoc.add("date " + sdf.format(date));
     }
 
     /**
@@ -180,6 +184,84 @@ public class BaseClass<T> {
         return method;
     }
 
+    /**
+     * <h3>生成私有属性 类型为String 包含GetSet方法 </h3>
+     *
+     * @param [codeModel, genClass, propertyName]
+     * @return void
+     * @author Crown
+     */
+    public JFieldVar generateProperties(String propertyName) throws ClassNotFoundException {
+        return generateProperties(codeModel.parseType("String"), propertyName);
+    }
+
+    /**
+     * <h3>生成私有属性 包含GetSet方法</h3>
+     *
+     * @param [codeModel, genClass, jType, propertyName]
+     * @return void
+     * @author Crown
+     */
+    public JFieldVar generateProperties(JType jType, String propertyName) {
+        return generateProperties(JMod.PRIVATE, jType, propertyName);
+    }
+
+    /**
+     * <h3>生成属性方法 包含GetSet方法</h3>
+     *
+     * @param [mods, jType, propertyName]
+     * @return void
+     * @author Crown
+     */
+    public JFieldVar generateProperties(int mods, JType jType, String propertyName) {
+        // 生成属性
+        JFieldVar field = genClass.field(mods, jType, propertyName);
+        generateGetSetMethod(jType, propertyName);
+        return field;
+    }
+
+    /**
+     * <h3>生成GetSet方法</h3>
+     *
+     * @param [jType, propertyName]
+     * @return void
+     * @author Crown
+     */
+    public void generateGetSetMethod(JType jType, String propertyName) {
+        generateGetMethod(jType, propertyName);
+        generateSetMethod(jType, propertyName);
+    }
+
+    /**
+     * <h3>生成get方法</h3>
+     *
+     * @param [jType, propertyName]
+     * @return void
+     * @author Crown
+     */
+    public void generateGetMethod(JType jType, String propertyName) {
+        // 生成方法
+        JMethod method = genClass.method(JMod.PUBLIC, jType, "get" + CharUtil.stringBeginCharToUpper(propertyName));
+        // 方法体
+        JBlock methodBlock = method.body();
+        methodBlock._return(JExpr.refthis(propertyName));
+    }
+
+    /**
+     * <h3>生成set方法</h3>
+     *
+     * @param [jType, propertyName]
+     * @return void
+     * @author Crown
+     */
+    public void generateSetMethod(JType jType, String propertyName) {
+        // 生成方法
+        JMethod method = genClass.method(JMod.PUBLIC, codeModel.VOID, "set" + CharUtil.stringBeginCharToUpper(propertyName));
+        JVar param = method.param(jType, propertyName);
+        // 方法体
+        JBlock methodBlock = method.body();
+        methodBlock.assign(JExpr.refthis(propertyName), JExpr.ref(propertyName));
+    }
 
     public JCodeModel getCodeModel() {
         return codeModel;
@@ -202,7 +284,7 @@ public class BaseClass<T> {
     }
 
     public String getModuleName() {
-        return Objects.equals(moduleName, "") ? "" : CodeModelConstants.TODO;
+        return Objects.equals(moduleName, "") ? CodeModelConstants.TODO : moduleName;
     }
 
     public void setModuleName(String moduleName) {
