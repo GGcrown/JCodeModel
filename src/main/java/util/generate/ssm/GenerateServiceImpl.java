@@ -53,7 +53,7 @@ public class GenerateServiceImpl extends BaseClass {
         // 初始化实例
         GenerateServiceImpl generateServiceImpl = new GenerateServiceImpl(genClass, jType);
         // 生成类注释
-        generateServiceImpl.generateClassJavaDoc();
+        generateServiceImpl.generateClassJavaDoc(generateServiceImpl.getModuleName() + "服务层");
         // 生成类注解
         generateServiceImpl.getGenClass().annotate(BaseAnnotation.service);
         // 生成基本方法
@@ -71,6 +71,7 @@ public class GenerateServiceImpl extends BaseClass {
      * @date 2018/7/20        
      */
     public void generateBaseMethod() throws Exception {
+        generateProperty();
         generateServiceImplAddMethod();
         generateServiceImplDeleteMethod();
         generateServiceImplUpdateMethod();
@@ -78,6 +79,19 @@ public class GenerateServiceImpl extends BaseClass {
         generateServiceImplFindByPkMethod();
     }
 
+    /**
+     * <h3>生成属性</h3>
+     *
+     * @param []
+     * @return void
+     * @author Crown
+     * @date 2018/7/28
+     */
+    public void generateProperty() throws Exception {
+        JFieldVar field = this.genClass.field(JMod.NONE, this.codeModel.parseType(getPropertyDaoName())
+                , CharUtil.stringBeginCharToLower(getPropertyDaoName()));
+        field.annotate(BaseAnnotation.autowired);
+    }
 
     /**
      * <h3>生成serviceImpl add方法</h3>
@@ -197,10 +211,14 @@ public class GenerateServiceImpl extends BaseClass {
         method._throws(CodeModelUtil.exception);
         // 方法体
         JBlock methodBody = method.body();
-        methodBody.invoke(baseModelParam, "countSave").arg(typePram.invoke(getCountPageDataMethodName()));
+        // methodBody.invoke(baseModelParam, "countSave").arg(typePram.invoke(getCountPageDataMethodName()));
+        methodBody.invoke(baseModelParam, "countSave")
+                .arg(JExpr.ref(CharUtil.stringBeginCharToLower(getPropertyDaoName())).invoke(getCountPageDataMethodName()));
         // 声明变量
-        JVar list = methodBody.decl(CodeModelUtil.list, "list");
-        methodBody.assign(list, methodBody.invoke(typePram, getFindPageDataMethodName()).arg(baseModelParam.invoke("getQueryParams")));
+        JVar list = methodBody.decl(CodeModelUtil.list, "list")
+                .init(JExpr.ref(CharUtil.stringBeginCharToLower(getPropertyDaoName())).invoke(getFindPageDataMethodName()).arg(baseModelParam.invoke("getQueryParams")));
+        // methodBody.assign(list, methodBody.invoke(JExpr.ref(CharUtil.stringBeginCharToLower(getPropertyDaoName()))
+        //         , getFindPageDataMethodName()).arg(baseModelParam.invoke("getQueryParams")));
         methodBody.invoke(baseModelParam, "setData").arg(list);
         // 生成注释
         this.generateMehotdJavaDoc(method, "分页查询" + this.moduleName, "");
@@ -258,5 +276,9 @@ public class GenerateServiceImpl extends BaseClass {
 
     public String getCountPageDataMethodName() {
         return "findPageData" + this.genClass.name() + "Vo";
+    }
+
+    public String getPropertyDaoName() {
+        return this.pojoType.name() + "Dao";
     }
 }

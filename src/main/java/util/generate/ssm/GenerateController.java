@@ -96,7 +96,7 @@ public class GenerateController extends BaseClass {
     public void generateProperty() throws Exception {
         serviceField = this.genClass.field(JMod.NONE, this.codeModel.parseType(this.pojoType.name() + "Service")
                 , CharUtil.stringBeginCharToLower(this.pojoType.name() + "Service"));
-        serviceField.annotate(CodeModelUtil.autowired);
+        serviceField.annotate(BaseAnnotation.autowired);
 
         // @Autowired
         // SalesLoanService salesLoanService;
@@ -121,7 +121,7 @@ public class GenerateController extends BaseClass {
         // 方法体
         JBlock methodBody = method.body();
         methodBody.invoke(this.serviceField, "addData").arg(baseModelParam).arg(typePram);
-        methodBody.invoke(baseModelParam, "setMeesage").arg("添加成功");
+        methodBody.invoke(baseModelParam, "setMessage").arg("添加成功");
         methodBody._return(baseModelParam);
         // 生成注解
         BaseAnnotation baseAnnotation = new BaseAnnotation(method, pojoType);
@@ -165,7 +165,7 @@ public class GenerateController extends BaseClass {
         // 方法体
         JBlock methodBody = method.body();
         methodBody.invoke(this.serviceField, "deleteData").arg(baseModelParam).arg(typePram);
-        methodBody.invoke(baseModelParam, "setMeesage").arg("删除成功");
+        methodBody.invoke(baseModelParam, "setMessage").arg("删除成功");
         methodBody._return(baseModelParam);
         // 生成注解
         BaseAnnotation baseAnnotation = new BaseAnnotation(method, pojoType);
@@ -204,7 +204,7 @@ public class GenerateController extends BaseClass {
         // 方法体
         JBlock methodBody = method.body();
         methodBody.invoke(this.serviceField, "updateData").arg(baseModelParam).arg(typePram);
-        methodBody.invoke(baseModelParam, "setMeesage").arg("修改成功");
+        methodBody.invoke(baseModelParam, "setMessage").arg("修改成功");
         methodBody._return(baseModelParam);
         // 生成注解
         BaseAnnotation baseAnnotation = new BaseAnnotation(method, pojoType);
@@ -247,7 +247,7 @@ public class GenerateController extends BaseClass {
         // 方法体
         JBlock methodBody = method.body();
         methodBody.invoke(this.serviceField, "findPageData").arg(baseModelParam).arg(typePram);
-        methodBody.invoke(baseModelParam, "setMeesage").arg("查询成功");
+        methodBody.invoke(baseModelParam, "setMessage").arg("查询成功");
         methodBody._return(baseModelParam);
         // 生成注解
         BaseAnnotation baseAnnotation = new BaseAnnotation(method, pojoType);
@@ -281,13 +281,13 @@ public class GenerateController extends BaseClass {
         // 生成参数 BaseModel、模块对象
         JVar baseModelParam = method.param(CodeModelUtil.baseModel, CharUtil.stringBeginCharToLower(CodeModelUtil.baseModel.name()));
         JVar typePram = method.param(CodeModelUtil.string, "pk");
-        typePram.annotate(CodeModelUtil.pathVariable).param("value", "pk");
+        typePram.annotate(BaseAnnotation.pathVariable).param("value", "pk");
         // 抛出异常
         method._throws(CodeModelUtil.exception);
         // 方法体
         JBlock methodBody = method.body();
         methodBody.invoke(this.serviceField, "findDataByPk").arg(baseModelParam).arg(typePram);
-        methodBody.invoke(baseModelParam, "setMeesage").arg("查询成功");
+        methodBody.invoke(baseModelParam, "setMessage").arg("查询成功");
         methodBody._return(baseModelParam);
         // 生成注解
         BaseAnnotation baseAnnotation = new BaseAnnotation(method, pojoType);

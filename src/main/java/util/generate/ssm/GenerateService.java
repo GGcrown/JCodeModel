@@ -50,7 +50,7 @@ public class GenerateService extends BaseClass<GenerateService> {
         // 初始化实例
         GenerateService generateService = new GenerateService(genClass, jType);
         // 生成类注释
-        generateService.generateClassJavaDoc();
+        generateService.generateClassJavaDoc(generateService.getModuleName() + "服务实现层");
         // 生成基本方法
         generateService.generateBaseMethod();
         return generateService;

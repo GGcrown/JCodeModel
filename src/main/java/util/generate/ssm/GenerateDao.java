@@ -54,7 +54,7 @@ public class GenerateDao extends BaseClass {
         // 初始化实例
         GenerateDao generateDao = new GenerateDao(genClass, jType);
         // 生成类注释
-        generateDao.generateClassJavaDoc();
+        generateDao.generateClassJavaDoc(generateDao.moduleName + "数据模型层");
         return generateDao;
     }
 

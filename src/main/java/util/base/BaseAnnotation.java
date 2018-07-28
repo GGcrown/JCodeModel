@@ -43,7 +43,10 @@ public class BaseAnnotation {
     public static JClass apiModelProperty;
     // Service 服务层注解
     public static JClass service;
-
+    // Autowired 自动注入类
+    public static JClass autowired;
+    // PathVariable 变量类
+    public static JClass pathVariable;
 
     static {
         aopLog = CodeModelUtil.codeModel.ref("AopLog");
@@ -59,6 +62,8 @@ public class BaseAnnotation {
         modelBind = CodeModelUtil.codeModel.ref("org.zsc.base.annotation.ModelBind");
         apiModelProperty = CodeModelUtil.codeModel.ref("com.wordnik.swagger.annotations.ApiModelProperty");
         service = CodeModelUtil.codeModel.ref("org.springframework.stereotype.Service");
+        autowired = CodeModelUtil.codeModel.ref("org.springframework.beans.factory.annotation.Autowired");
+        pathVariable = CodeModelUtil.codeModel.ref("org.springframework.web.bind.annotation.PathVariable");
     }
 
     /**
@@ -156,7 +161,7 @@ public class BaseAnnotation {
         JAnnotationUse annotation = method.annotate(apiOperation);
         annotation.param("value", apiOperationValue);
         annotation.param("httpMethod", apiOperationHttpMethod);
-        annotation.param("response", this.pojoType.getClass());
+        annotation.param("response", CodeModelUtil.codeModel.ref(this.pojoType.name()).staticRef("class"));
     }
 
 
