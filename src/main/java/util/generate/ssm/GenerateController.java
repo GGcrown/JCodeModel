@@ -115,7 +115,7 @@ public class GenerateController extends BaseClass {
         JMethod method = this.genClass.method(JMod.PUBLIC, CodeModelUtil.baseModel, "addData");
         // 生成参数 BaseModel、模块对象
         JVar baseModelParam = method.param(CodeModelUtil.baseModel, CharUtil.stringBeginCharToLower(CodeModelUtil.baseModel.name()));
-        JVar typePram = method.param(this.pojoType, CharUtil.stringBeginCharToLower(this.pojoType.name()));
+        JVar typePram = method.param(this.codeModel.parseType(this.pojoType.name()), CharUtil.stringBeginCharToLower(this.pojoType.name()));
         // 抛出异常
         method._throws(CodeModelUtil.exception);
         // 方法体
@@ -160,6 +160,7 @@ public class GenerateController extends BaseClass {
         // 生成参数 BaseModel、模块对象
         JVar baseModelParam = method.param(CodeModelUtil.baseModel, CharUtil.stringBeginCharToLower(CodeModelUtil.baseModel.name()));
         JVar typePram = method.param(CodeModelUtil.string, CharUtil.stringBeginCharToLower("delIds"));
+        typePram.annotate(BaseAnnotation.pathVariable).param("value", "delIds");
         // 抛出异常
         method._throws(CodeModelUtil.exception);
         // 方法体
@@ -195,10 +196,10 @@ public class GenerateController extends BaseClass {
      */
     public void generateControllerUpdateMethod() throws Exception {
         // 生成update方法
-        JMethod method = this.genClass.method(JMod.PUBLIC, CodeModelUtil.baseModel, "addData");
+        JMethod method = this.genClass.method(JMod.PUBLIC, CodeModelUtil.baseModel, "updateData");
         // 生成参数 BaseModel、模块对象
         JVar baseModelParam = method.param(CodeModelUtil.baseModel, CharUtil.stringBeginCharToLower(CodeModelUtil.baseModel.name()));
-        JVar typePram = method.param(this.pojoType, CharUtil.stringBeginCharToLower(this.pojoType.name()));
+        JVar typePram = method.param(this.codeModel.parseType(this.pojoType.name()), CharUtil.stringBeginCharToLower(this.pojoType.name()));
         // 抛出异常
         method._throws(CodeModelUtil.exception);
         // 方法体
@@ -241,7 +242,7 @@ public class GenerateController extends BaseClass {
         JMethod method = this.genClass.method(JMod.PUBLIC, CodeModelUtil.baseModel, "findPageData");
         // 生成参数 BaseModel、模块对象
         JVar baseModelParam = method.param(CodeModelUtil.baseModel, CharUtil.stringBeginCharToLower(CodeModelUtil.baseModel.name()));
-        JVar typePram = method.param(this.pojoType, CharUtil.stringBeginCharToLower(this.pojoType.name()));
+        JVar typePram = method.param(this.codeModel.parseType(this.pojoType.name()), CharUtil.stringBeginCharToLower(this.pojoType.name()));
         // 抛出异常
         method._throws(CodeModelUtil.exception);
         // 方法体

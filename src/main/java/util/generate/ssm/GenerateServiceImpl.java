@@ -44,12 +44,12 @@ public class GenerateServiceImpl extends BaseClass {
      * @param [fullName, jType]
      * @return test.util.generate.ssm.GenerateServiceImpl
      * @author Crown
-     * @date 2018/7/21        
+     * @date 2018/7/21
      */
     public static GenerateServiceImpl initClass(JType jType) throws Exception {
         JDefinedClass genClass = CodeModelUtil.codeModel._class(JMod.PUBLIC,
-                CodeModelUtil.getBasePackage() + ".service.impl." + jType.name() + "ServiceImpl"
-                , ClassType.CLASS);
+            CodeModelUtil.getBasePackage() + ".service.impl." + jType.name() + "ServiceImpl"
+            , ClassType.CLASS);
         // 初始化实例
         GenerateServiceImpl generateServiceImpl = new GenerateServiceImpl(genClass, jType);
         // 生成类注释
@@ -68,7 +68,7 @@ public class GenerateServiceImpl extends BaseClass {
      * @param []
      * @return void
      * @author Crown
-     * @date 2018/7/20        
+     * @date 2018/7/20
      */
     public void generateBaseMethod() throws Exception {
         generateProperty();
@@ -89,7 +89,7 @@ public class GenerateServiceImpl extends BaseClass {
      */
     public void generateProperty() throws Exception {
         JFieldVar field = this.genClass.field(JMod.NONE, this.codeModel.parseType(getPropertyDaoName())
-                , CharUtil.stringBeginCharToLower(getPropertyDaoName()));
+            , CharUtil.stringBeginCharToLower(getPropertyDaoName()));
         field.annotate(BaseAnnotation.autowired);
     }
 
@@ -144,7 +144,7 @@ public class GenerateServiceImpl extends BaseClass {
         JBlock methodBody = method.body();
         // 判断如果为空
         JConditional ifCondition = methodBody._if(typePram.eq(JExpr.ref("null")).cor(JExpr.lit("")
-                .invoke("equals").arg(typePram)));
+            .invoke("equals").arg(typePram)));
         ifCondition._then()._throw(JExpr._new(CodeModelUtil.businessException).arg("请选择删除的记录"));
         methodBody.invoke(JExpr._new(pojoType), "deleteInPkValue_isdeleted").arg(typePram);
         // 生成注释
@@ -213,10 +213,12 @@ public class GenerateServiceImpl extends BaseClass {
         JBlock methodBody = method.body();
         // methodBody.invoke(baseModelParam, "countSave").arg(typePram.invoke(getCountPageDataMethodName()));
         methodBody.invoke(baseModelParam, "countSave")
-                .arg(JExpr.ref(CharUtil.stringBeginCharToLower(getPropertyDaoName())).invoke(getCountPageDataMethodName()));
+            .arg(JExpr.ref(CharUtil.stringBeginCharToLower(getPropertyDaoName()))
+                .invoke(CharUtil.stringBeginCharToLower("count" + this.pojoType.name() + "Vo")));
         // 声明变量
-        JVar list = methodBody.decl(CodeModelUtil.list, "list")
-                .init(JExpr.ref(CharUtil.stringBeginCharToLower(getPropertyDaoName())).invoke(getFindPageDataMethodName()).arg(baseModelParam.invoke("getQueryParams")));
+        JVar list = methodBody.decl(CodeModelUtil.list, "list");
+        list.init(JExpr.ref(CharUtil.stringBeginCharToLower(getPropertyDaoName()))
+            .invoke(CharUtil.stringBeginCharToLower("findPage" + this.pojoType.name() + "Vo")).arg(baseModelParam.invoke("getQueryParams")));
         // methodBody.assign(list, methodBody.invoke(JExpr.ref(CharUtil.stringBeginCharToLower(getPropertyDaoName()))
         //         , getFindPageDataMethodName()).arg(baseModelParam.invoke("getQueryParams")));
         methodBody.invoke(baseModelParam, "setData").arg(list);
@@ -253,7 +255,7 @@ public class GenerateServiceImpl extends BaseClass {
         JBlock methodBody = method.body();
         // 判断如果为空
         JConditional ifCondition = methodBody._if(typePram.eq(JExpr.ref("null")).cor(JExpr.lit("")
-                .invoke("equals").arg(typePram)));
+            .invoke("equals").arg(typePram)));
         ifCondition._then()._throw(JExpr._new(CodeModelUtil.businessException).arg("查询记录主键id不能为空"));
         methodBody.invoke(JExpr._new(pojoType), "deleteInPkValue_isdeleted").arg(typePram);
         // 生成注释

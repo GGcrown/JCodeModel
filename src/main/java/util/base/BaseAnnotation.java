@@ -109,10 +109,10 @@ public class BaseAnnotation {
      * @param requestMappingValue 方法映射路径
      * @return void
      * @author Crown
-     * @date 2018/7/24        
+     * @date 2018/7/24
      */
     public void generateBaseAnnottation(String aopLogModule, String aopLogType, boolean aopLogSaveLog
-            , String apiOperationValue, String apiOperationHttpMethod, String requestMappingValue) {
+        , String apiOperationValue, String apiOperationHttpMethod, String requestMappingValue) {
         generateAopLog(aopLogModule, aopLogType, aopLogSaveLog);
         generateApiOperation(apiOperationValue, apiOperationHttpMethod);
         generateRequestMapping(requestMappingValue);
@@ -147,7 +147,7 @@ public class BaseAnnotation {
      * @param [apiOperationValue swagger手册操作内容, apiOperationHttpMethod 请求类型]
      * @return void
      * @author Crown
-     * @date 2018/7/24        
+     * @date 2018/7/24
      */
     public void generateApiOperation(String apiOperationValue, String apiOperationHttpMethod) {
         if (apiOperationValue == null || Objects.equals(apiOperationValue, "")) {
@@ -171,7 +171,7 @@ public class BaseAnnotation {
      * @param [requestMappingValue 方法映射路径]
      * @return void
      * @author Crown
-     * @date 2018/7/24        
+     * @date 2018/7/24
      */
     public void generateRequestMapping(String requestMappingValue) {
         if (requestMappingValue == null || Objects.equals(requestMappingValue, "")) {
@@ -188,7 +188,7 @@ public class BaseAnnotation {
      * @param [genClass, mapping]
      * @return void
      * @author Crown
-     * @date 2018/7/26        
+     * @date 2018/7/26
      */
     public void generateControllerAnnotation(JDefinedClass genClass, String mapping) {
         if (mapping == null || Objects.equals(mapping, "")) {
