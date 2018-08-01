@@ -2,7 +2,7 @@ package test;
 
 import org.junit.Test;
 import util.generate.ssm.GenerateSSM;
-import wang.crown9527.test.po.SysUser;
+// import wang.crown9527.test.po.SysUser;
 
 /**
  * @author Crown
@@ -23,6 +23,7 @@ public class SSMTest {
 
     @Test
     public void generatorSingleModuleTest() throws Exception {
-        GenerateSSM.generatorSingleModule(SysUser.class, "用户", "No909");
+        // 在将需要改名的pojo类改名后运行此方法
+        // GenerateSSM.generatorSingleModule(SysUser.class, "用户", "No909");
     }
 }
